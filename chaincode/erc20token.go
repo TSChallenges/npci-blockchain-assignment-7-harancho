@@ -1,58 +1,23 @@
+/*
+SPDX-License-Identifier: Apache-2.0
+*/
+
 package main
 
 import (
-	"bytes"
-	"encoding/json"
-	"fmt"
+	"log"
+
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
+	"github.com/hyperledger/fabric-samples/asset-transfer-basic/chaincode-go/token-chaincode"
 )
 
-type Token struct {
-	Name   string `json:"name"`
-	Symbol string `json:"symbol"`
-	Decimals int    `json:"decimals"`
-	TotalSupply int `json:"totalSupply"`
-}
-
-type TokenContract struct {
-	contractapi.Contract
-}
-
-type Balance struct {
-	Balance int `json:"balance"`
-}
-
-
-// TODO: InitLedger for token initialization
-
-
-// TODO: MintTokens for minting tokens
-
-
-// TODO: TransferTokens for transferring tokens
-
-
-// TODO: GetBalance to check the balance
-
-
-// TODO: ApproveSpender for approving spending
-
-
-// TODO: TransferFrom for transferring from approved spenders
-
-
-// TODO: BurnTokens for burning tokens
-
-
 func main() {
-	chaincode, err := contractapi.NewChaincode(&TokenContract{})
+	assetChaincode, err := contractapi.NewChaincode(&chaincode.TokenContract{})
 	if err != nil {
-		fmt.Printf("Error creating token chaincode: %v", err)
-		return
+		log.Panicf("Error creating asset-transfer-basic chaincode: %v", err)
 	}
 
-	if err := chaincode.Start(); err != nil {
-		fmt.Printf("Error starting token chaincode: %v", err)
+	if err := assetChaincode.Start(); err != nil {
+		log.Panicf("Error starting asset-transfer-basic chaincode: %v", err)
 	}
 }
-
